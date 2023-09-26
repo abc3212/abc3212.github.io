@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lucky draw</title>
+    <link rel="stylesheet" href="css/draw.css">
+</head>
+
+<body>
+
+<div class="colortxt">diedie生日限定抽奖</div>
+<div class="title">可抽奖<label id="count">0</label>次</div>
+<div class="box"></div>
+
+</body>
+
+<script>
+    // 奖品列表
+    const list = [
+        {id: 1, name: '零食大礼包*1', is: true},
+        {id: 2, name: '月饼子*1', is: true},
+        {id: 3, name: '龟龟点曲*3', is: true},
+        {id: 4, name: '龟龟挂件*1',is : true},
+        {id: 5, name: '么有啦',is : true},
+        {id: 6, name: '看我做咩啊，想抽我啊'},
+        {id: 7, name: '小轿车车（没货捏）'},
+        {id: 8, name: '房子一套（抱歉付总，没货捏）'},
+        {id: 9, name: '豪华小电驴（抽不到的没货捏）'}
+    ].sort(v => Math.random() - 0.5);
+    // 中奖项
+    const isArr = list.filter(v => v.is);
+    // 非中奖项
+    const noArr = list.filter(v => !v.is);
+    // 抽奖次数
+    let count = 5;
+    const box = document.querySelector('.box');
+    const countEL = document.querySelector('#count');
+    countEL.innerHTML = count;
+    box.innerHTML = list.map(v => {
+        return `<div class="item" onclick="fp(this)">
+                <div class="style1">抽奖</div>
+                <div class="style2"></div>
+                </div>`
+    }).join('');
+    // 翻牌抽奖
+    const fp = (me) => {
+        if (count === 0) {
+            return;
+        }
+        me.querySelector('.style1').classList.add('hide');
+        // 抽奖动画
+        setTimeout(() => {
+            // 从非中奖项中取最后一个，并从数组中移除该项
+            const item = isArr.pop();
+            const style2 = me.querySelector('.style2');
+            style2.innerHTML = item.name;
+            style2.classList.add('show');
+        }, 400);
+        count--;
+        countEL.innerHTML = count;
+        // 当抽奖次数为0的时候，就把剩余的奖项全部展示出来
+        if (count === 0) {
+            setTimeout(() => {
+                box.querySelectorAll('.style1').forEach(v => {
+                    v.classList.add('hide')
+                    if (v.nextElementSibling.className.indexOf('show') === -1) {
+                        const item = noArr.pop()
+                        v.nextElementSibling.innerHTML = item.name
+                    }
+                });
+                setTimeout(() => {
+                    box.querySelectorAll('.style2').forEach(v => {
+                        if (v.className.indexOf('show') === -1) {
+                            v.classList.add('show-result')
+                        }
+                    })
+                }, 400);
+            }, 1000);
+        }
+    }
+</script>
+</html>

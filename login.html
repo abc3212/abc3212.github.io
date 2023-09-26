@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday</title>
+    <script  src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+</head>
+<body>
+
+<div class="htmleaf-container">
+    <div class="wrapper">
+        <div class="container">
+            <h1>生日快乐</h1>
+
+            <form class="form">
+                <input
+                        id="userName"
+                        name="userName"
+                        type="text"
+                        placeholder="姓名"
+                />
+                <input id="password" name="pwd" type="password" placeholder="密码" />
+                <button type="submit" id="login-button">进入</button>
+            </form>
+        </div>
+
+
+        <ul class="bg-bubbles">
+            <li>
+                <img src="images/1.png" style="width: 100%; height: 100%" />
+            </li>
+            <li>
+                <img src="images/2.png" style="width: 100%; height: 100%" />
+            </li>
+            <li>
+                <img src="images/3.png" style="width: 100%; height: 100%" />
+            </li>
+            <li>
+                <img src="images/4.png" style="width: 100%; height: 100%" />
+            </li>
+            <li>
+                <img src="images/5.png" style="width: 100%; height: 100%" />
+            </li>
+            <li>
+                <img src="images/6.png" style="width: 100%; height: 100%" />
+            </li>
+            <li>
+                <img src="images/11.png" style="width: 100%; height: 100%" />
+            </li>
+            <li>
+                <img src="images/15.png" style="width: 100%; height: 100%" />
+            </li>
+            <li>
+                <img src="images/13.png" style="width: 100%; height: 100%" />
+            </li>
+            <li>
+                <img src="images/7.png" style="width: 100%; height: 100%" />
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    let userName=document.getElementById('userName');
+    let password=document.getElementById('password');
+    let btn=document.getElementById('login-button');
+
+    btn.onclick = function() {
+        let uname=userName.value;
+        let pwd=password.value;
+        if(uname === "fudie" && pwd === "20010816"){
+            window.open("cake.html");
+            alert("登录成功");
+            localStorage.setItem('username',uname);
+            localStorage.setItem('password',pwd);
+
+        }else {
+            alert("登录失败");
+        }
+    }
+    userName.value=localStorage.getItem("uname");
+    password.value = localStorage.getItem("pwd");
+
+</script>
+<audio src="music/" autoplay="autoplay" loop="loop" hidden="hidden" controls="controls">></audio>
+</body>
+</html>
+
+
+
+
+

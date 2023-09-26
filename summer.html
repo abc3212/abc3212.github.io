@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>summer</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <script src="https://cdn.bootcdn.net/ajax/libs/pixi.js/7.1.2/pixi.js"></script>
+    <script  src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi-filters@latest/dist/pixi-filters.js"></script>
+
+    <link rel="stylesheet" href="css/season.css">
+
+</head>
+
+<body>
+
+<audio src="music/summer/Blueming.mp3" id="music01" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/JarOfLove.mp3" id="music02" controls="controls" hidden="hidden" loop="loop" preload="auto"></audio>
+<audio src="music/summer/bandianxin.mp3" id="music03" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/FatalLove.mp3" id="music04" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/guchu.mp3" id="music05" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/yuan.mp3" id="music06" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/sheiminglangzixin.mp3" id="music07" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/Insomnia.mp3" id="music08" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/haikuotiankong.mp3" id="music09" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/OnlyOne.mp3" id="music10" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/Rodeo(OriginalMix).mp3" id="music11" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/xiaochengdashi.mp3" id="music12" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/meishenmedabuliao.mp3" id="music13" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/CreepinuponYou.mp3" id="music14" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/Takemehand.mp3" id="music15" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/TalkingtotheMoon.mp3" id="music16" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/YouKnowWhat.mp3" id="music17" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/WhyWouldIEver.mp3" id="music18" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/yanshang.mp3" id="music19" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/xiaobai.mp3" id="music20" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/Ferrari.mp3" id="music21" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+<audio src="music/summer/xiguanshilian.mp3" id="music22" controls="controls" hidden="hidden"  loop="loop" preload="auto"></audio>
+
+</body>
+
+<script>
+
+    var music01 = document.getElementById('music01');
+    var music02 = document.getElementById('music02');
+    var music03 = document.getElementById('music03');
+    var music04 = document.getElementById('music04');
+    var music05 = document.getElementById('music05');
+    var music06 = document.getElementById('music06');
+    var music07 = document.getElementById('music07');
+    var music08 = document.getElementById('music08');
+    var music09 = document.getElementById('music09');
+    var music10=  document.getElementById('music10');
+    var music11 = document.getElementById('music11');
+    var music12 = document.getElementById('music12');
+    var music13 = document.getElementById('music13');
+    var music14 = document.getElementById('music14');
+    var music15 = document.getElementById('music15');
+    var music16 = document.getElementById('music16');
+    var music17 = document.getElementById('music17');
+    var music18 = document.getElementById('music18');
+    var music19 = document.getElementById('music19');
+    var music20 = document.getElementById('music20');
+    var music21 = document.getElementById('music21');
+    var music22 = document.getElementById('music22');
+
+
+    //别名
+    let Application = PIXI.Application;
+
+    //创建一个应用对象
+    let app = new Application({
+        width :window.innerWidth,
+        height: window.innerHeight,
+        background :"white",
+        antialias: true,
+        transparent: false,
+        resolution: 1
+    });
+
+    document.body.appendChild(app.view);
+
+    //为场景添加图片纹理
+    PIXI.Assets.addBundle("scene1",{
+        summer:"images/summer.jpg",
+        diaochan:"images/1.png",daji:"images/2.png",yao:"images/3.png",ailin:"images/4.png",nake:"images/5.png",galuo:"images/6.png",wangzahojun:"images/7.png",xialuoter:"images/8.png",
+        sunbin:"images/9.png",yu:"images/10.png",caiwenji:"images/11.png",zhenji:"images/12.png",xiaoming:"images/13.png",daqiao:"images/14.png",xiaoqiao:"images/15.png",
+        feifei:"images/16.png",suanxiang:"images/17.png",change:"images/18.png",anqila:"images/19.png",libai:"images/20.png",lan:"images/21.png",make:"images/22.png"
+    });
+
+    const texturesPromise=PIXI.Assets.loadBundle("scene1",(progress)=>{
+        console.log("加载完成:",progress);
+    });
+
+    //纹理加载完成生成精灵
+    texturesPromise.then((textures)=>{
+        //精灵容器
+        const container=new PIXI.Container();
+
+        const summer=new PIXI.Sprite(textures.summer);
+        summer.x=window.innerWidth/2;
+        summer.y=window.innerHeight/2;
+        summer.anchor.set(0.5);
+        summer.scale.set(1);
+
+
+        const diaochan=new PIXI.Sprite(textures.diaochan);
+        diaochan.x=625;
+        diaochan.y=465;
+        diaochan.anchor.set(0.5);
+        diaochan.scale.set(0.1);
+        diaochan.interactive=true;
+        diaochan.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter01=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter01.blur=0;
+        // 将滤镜添加到精灵上
+        diaochan.filters=[blurFilter01];
+        // 监听鼠标是否进入精灵
+        diaochan.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter01.blur=0.5;
+        })
+        diaochan.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter01.blur=0;
+        })
+
+        const daji=new PIXI.Sprite(textures.daji);
+        daji.x=1410;
+        daji.y=400;
+        daji.anchor.set(0.5);
+        daji.scale.set(0.1);
+        daji.interactive=true;
+        daji.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter02=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter02.blur=0;
+        // 将滤镜添加到精灵上
+        daji.filters=[blurFilter02];
+        // 监听鼠标是否进入精灵
+        daji.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter02.blur=0.5;
+        })
+        daji.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter02.blur=0;
+        })
+
+
+        const yao=new PIXI.Sprite(textures.yao);
+        yao.x=640;
+        yao.y=725;
+        yao.anchor.set(0.5);
+        yao.scale.set(0.1);
+        yao.interactive=true;
+        yao.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter03=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter03.blur=0;
+        // 将滤镜添加到精灵上
+        yao.filters=[blurFilter03];
+        // 监听鼠标是否进入精灵
+        yao.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter03.blur=0.5;
+        })
+        yao.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter03.blur=0;
+        })
+
+        const ailin=new PIXI.Sprite(textures.ailin);
+        ailin.x=1390;
+        ailin.y=680;
+        ailin.anchor.set(0.5);
+        ailin.scale.set(0.1);
+        ailin.interactive=true;
+        ailin.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter04=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter04.blur=0;
+        // 将滤镜添加到精灵上
+        ailin.filters=[blurFilter04];
+        // 监听鼠标是否进入精灵
+        ailin.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter04.blur=0.5;
+        })
+        ailin.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter04.blur=0;
+        })
+
+        const nake=new PIXI.Sprite(textures.nake);
+        nake.x=1095;
+        nake.y=270;
+        nake.anchor.set(0.5);
+        nake.scale.set(0.1);
+        nake.interactive=true;
+        nake.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter05=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter05.blur=0;
+        // 将滤镜添加到精灵上
+        nake.filters=[blurFilter05];
+        // 监听鼠标是否进入精灵
+        nake.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter05.blur=0.5;
+        })
+        nake.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter05.blur=0;
+        })
+
+        const galuo=new PIXI.Sprite(textures.galuo);
+        galuo.x=375;
+        galuo.y=715;
+        galuo.anchor.set(0.5);
+        galuo.scale.set(0.1);
+        galuo.interactive=true;
+        galuo.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter06=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter06.blur=0;
+        // 将滤镜添加到精灵上
+        galuo.filters=[blurFilter06];
+        // 监听鼠标是否进入精灵
+        galuo.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter06.blur=0.5;
+        })
+        galuo.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter06.blur=0;
+        })
+
+        const wangzahojun=new PIXI.Sprite(textures.wangzahojun);
+        wangzahojun.x=570;
+        wangzahojun.y=195;
+        wangzahojun.anchor.set(0.5);
+        wangzahojun.scale.set(0.1);
+        wangzahojun.interactive=true;
+        wangzahojun.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter07=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter07.blur=0;
+        // 将滤镜添加到精灵上
+        wangzahojun.filters=[blurFilter07];
+        // 监听鼠标是否进入精灵
+        wangzahojun.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter07.blur=0.5;
+        })
+        wangzahojun.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter07.blur=0;
+        })
+
+        const xialuoter=new PIXI.Sprite(textures.xialuoter);
+        xialuoter.x=1450;
+        xialuoter.y=670;
+        xialuoter.anchor.set(0.5);
+        xialuoter.scale.set(0.1);
+        xialuoter.interactive=true;
+        xialuoter.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter08=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter08.blur=0;
+        // 将滤镜添加到精灵上
+        xialuoter.filters=[blurFilter08];
+        // 监听鼠标是否进入精灵
+        xialuoter.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter08.blur=0.5;
+        })
+        xialuoter.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter08.blur=0;
+        })
+
+        const sunbin=new PIXI.Sprite(textures.sunbin);
+        sunbin.x=485;
+        sunbin.y=780;
+        sunbin.anchor.set(0.5);
+        sunbin.scale.set(0.1);
+        sunbin.interactive=true;
+        sunbin.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter09=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter09.blur=0;
+        // 将滤镜添加到精灵上
+        sunbin.filters=[blurFilter09];
+        // 监听鼠标是否进入精灵
+        sunbin.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter09.blur=0.5;
+        })
+        sunbin.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter09.blur=0;
+        })
+
+        const yu=new PIXI.Sprite(textures.yu);
+        yu.x=1100;
+        yu.y=745;
+        yu.anchor.set(0.5);
+        yu.scale.set(0.1);
+        yu.interactive=true;
+        yu.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter10=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter10.blur=0;
+        // 将滤镜添加到精灵上
+        yu.filters=[blurFilter10];
+        // 监听鼠标是否进入精灵
+        yu.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter10.blur=0.5;
+        })
+        yu.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter10.blur=0;
+        })
+
+        const caiwenji=new PIXI.Sprite(textures.caiwenji);
+        caiwenji.x=885;
+        caiwenji.y=720;
+        caiwenji.anchor.set(0.5);
+        caiwenji.scale.set(0.1);
+        caiwenji.interactive=true;
+        caiwenji.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter11=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter11.blur=0;
+        // 将滤镜添加到精灵上
+        caiwenji.filters=[blurFilter11];
+        // 监听鼠标是否进入精灵
+        caiwenji.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter11.blur=0.5;
+        })
+        caiwenji.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter11.blur=0;
+        })
+
+        const zhenji=new PIXI.Sprite(textures.zhenji);
+        zhenji.x=1105;
+        zhenji.y=430;
+        zhenji.anchor.set(0.5);
+        zhenji.scale.set(0.1);
+        zhenji.interactive=true;
+        zhenji.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter12=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter12.blur=0;
+        // 将滤镜添加到精灵上
+        zhenji.filters=[blurFilter12];
+        // 监听鼠标是否进入精灵
+        zhenji.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter12.blur=0.5;
+        })
+        zhenji.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter12.blur=0;
+        })
+
+        const xiaoming=new PIXI.Sprite(textures.xiaoming);
+        xiaoming.x=760;
+        xiaoming.y=450;
+        xiaoming.anchor.set(0.5);
+        xiaoming.scale.set(0.1);
+        xiaoming.interactive=true;
+        xiaoming.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter13=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter13.blur=0;
+        // 将滤镜添加到精灵上
+        xiaoming.filters=[blurFilter13];
+        // 监听鼠标是否进入精灵
+        xiaoming.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter13.blur=0.5;
+        })
+        xiaoming.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter13.blur=0;
+        })
+
+        const daqiao=new PIXI.Sprite(textures.daqiao);
+        daqiao.x=940;
+        daqiao.y=375;
+        daqiao.anchor.set(0.5);
+        daqiao.scale.set(0.1);
+        daqiao.interactive=true;
+        daqiao.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter14=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter14.blur=0;
+        // 将滤镜添加到精灵上
+        daqiao.filters=[blurFilter14];
+        // 监听鼠标是否进入精灵
+        daqiao.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter14.blur=0.5;
+        })
+        daqiao.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter14.blur=0;
+        })
+
+        const xiaoqiao=new PIXI.Sprite(textures.xiaoqiao);
+        xiaoqiao.x=1035;
+        xiaoqiao.y=400;
+        xiaoqiao.anchor.set(0.5);
+        xiaoqiao.scale.set(0.1);
+        xiaoqiao.interactive=true;
+        xiaoqiao.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter15=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter15.blur=0;
+        // 将滤镜添加到精灵上
+        xiaoqiao.filters=[blurFilter15];
+        // 监听鼠标是否进入精灵
+        xiaoqiao.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter15.blur=0.5;
+        })
+        xiaoqiao.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter15.blur=0;
+        })
+
+        const feifei=new PIXI.Sprite(textures.feifei);
+        feifei.x=1745;
+        feifei.y=780;
+        feifei.anchor.set(0.5);
+        feifei.scale.set(0.1);
+        feifei.interactive=true;
+        feifei.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter16=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter16.blur=0;
+        // 将滤镜添加到精灵上
+        feifei.filters=[blurFilter16];
+        // 监听鼠标是否进入精灵
+        feifei.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter16.blur=0.5;
+        })
+        feifei.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter16.blur=0;
+        })
+
+        const suanxiang=new PIXI.Sprite(textures.suanxiang);
+        suanxiang.x=695;
+        suanxiang.y=450;
+        suanxiang.anchor.set(0.5);
+        suanxiang.scale.set(0.1);
+        suanxiang.interactive=true;
+        suanxiang.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter17=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter17.blur=0;
+        // 将滤镜添加到精灵上
+        suanxiang.filters=[blurFilter17];
+        // 监听鼠标是否进入精灵
+        suanxiang.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter17.blur=0.5;
+        })
+        suanxiang.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter17.blur=0;
+        })
+
+        const change=new PIXI.Sprite(textures.change);
+        change.x=290;
+        change.y=240;
+        change.anchor.set(0.5);
+        change.scale.set(0.1);
+        change.interactive=true;
+        change.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter18=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter18.blur=0;
+        // 将滤镜添加到精灵上
+        change.filters=[blurFilter18];
+        // 监听鼠标是否进入精灵
+        change.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter18.blur=0.5;
+        })
+        change.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter18.blur=0;
+        })
+
+        const anqila=new PIXI.Sprite(textures.anqila);
+        anqila.x=1490;
+        anqila.y=380;
+        anqila.anchor.set(0.5);
+        anqila.scale.set(0.1);
+        anqila.interactive=true;
+        anqila.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter19=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter19.blur=0;
+        // 将滤镜添加到精灵上
+        anqila.filters=[blurFilter19];
+        // 监听鼠标是否进入精灵
+        anqila.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter19.blur=0.5;
+        })
+        anqila.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter19.blur=0;
+        })
+
+        const libai=new PIXI.Sprite(textures.libai);
+        libai.x=450;
+        libai.y=210;
+        libai.anchor.set(0.5);
+        libai.scale.set(0.1);
+        libai.interactive=true;
+        libai.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter20=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter20.blur=0;
+        // 将滤镜添加到精灵上
+        libai.filters=[blurFilter20];
+        // 监听鼠标是否进入精灵
+        libai.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter20.blur=0.5;
+        })
+        libai.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter20.blur=0;
+        })
+
+        const lan=new PIXI.Sprite(textures.lan);
+        lan.x=1000;
+        lan.y=800;
+        lan.anchor.set(0.5);
+        lan.scale.set(0.1);
+        lan.interactive=true;
+        lan.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter21=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter21.blur=0;
+        // 将滤镜添加到精灵上
+        lan.filters=[blurFilter21];
+        // 监听鼠标是否进入精灵
+        lan.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter21.blur=0.5;
+        })
+        lan.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter21.blur=0;
+        })
+
+        const make=new PIXI.Sprite(textures.make);
+        make.x=700;
+        make.y=720;
+        make.anchor.set(0.5);
+        make.scale.set(0.1);
+        make.interactive=true;
+        make.buttonMode=true;
+
+        //创建模糊滤镜
+        const blurFilter22=new PIXI.BlurFilter();
+        //设置滤镜的模糊程度
+        blurFilter22.blur=0;
+        // 将滤镜添加到精灵上
+        make.filters=[blurFilter22];
+        // 监听鼠标是否进入精灵
+        make.on("pointerover",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter22.blur=0.5;
+        })
+        make.on("pointerout",()=>{
+            //设置模糊滤镜的模糊程度
+            blurFilter22.blur=0;
+        })
+
+        container.addChild(summer);
+        container.addChild(diaochan,daji,yao,ailin,nake,galuo,wangzahojun,xialuoter,sunbin,yu,caiwenji,zhenji,xiaoming,daqiao,xiaoqiao,feifei,suanxiang,change,anqila,libai,lan,make);
+        app.stage.addChild(container);
+
+
+        nake.on("mousedown",()=>{
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music03.duration;
+
+            music04.pause();
+            music04.currentTime-=music04.duration;
+
+            music05.pause();
+            music05.currentTime-=music05.duration;
+
+            music06.pause();
+            music06.currentTime-=music06.duration;
+
+            music07.pause();
+            music07.currentTime-=music07.duration;
+
+            music08.pause();
+            music08.currentTime-=music08.duration;
+
+            music09.pause();
+            music09.currentTime-=music09.duration;
+
+            music10.pause();
+            music10.currentTime-=music10.duration;
+
+            music11.pause();
+            music11.currentTime-=music11.duration;
+
+            music12.pause();
+            music12.currentTime-=music12.duration;
+
+            music13.pause();
+            music13.currentTime-=music13.duration;
+
+            music14.pause();
+            music14.currentTime-=music14.duration;
+
+            music15.pause();
+            music15.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music01.play();
+        })
+
+        diaochan.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music03.duration;
+
+            music04.pause();
+            music04.currentTime-=music04.duration;
+
+            music05.pause();
+            music05.currentTime-=music05.duration;
+
+            music06.pause();
+            music06.currentTime-=music06.duration;
+
+            music07.pause();
+            music07.currentTime-=music07.duration;
+
+            music08.pause();
+            music08.currentTime-=music08.duration;
+
+            music09.pause();
+            music09.currentTime-=music09.duration;
+
+            music10.pause();
+            music10.currentTime-=music10.duration;
+
+            music11.pause();
+            music11.currentTime-=music11.duration;
+
+            music12.pause();
+            music12.currentTime-=music12.duration;
+
+            music13.pause();
+            music13.currentTime-=music13.duration;
+
+            music14.pause();
+            music14.currentTime-=music14.duration;
+
+            music15.pause();
+            music15.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music02.play();
+        })
+
+        feifei.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music04.pause();
+            music04.currentTime-=music04.duration;
+
+            music05.pause();
+            music05.currentTime-=music05.duration;
+
+            music06.pause();
+            music06.currentTime-=music06.duration;
+
+            music07.pause();
+            music07.currentTime-=music07.duration;
+
+            music08.pause();
+            music08.currentTime-=music08.duration;
+
+            music09.pause();
+            music09.currentTime-=music09.duration;
+
+            music10.pause();
+            music10.currentTime-=music10.duration;
+
+            music11.pause();
+            music11.currentTime-=music11.duration;
+
+            music12.pause();
+            music12.currentTime-=music12.duration;
+
+            music13.pause();
+            music13.currentTime-=music13.duration;
+
+            music14.pause();
+            music14.currentTime-=music14.duration;
+
+            music15.pause();
+            music15.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music03.play();
+        })
+
+        xiaoming.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music05.pause();
+            music05.currentTime-=music05.duration;
+
+            music06.pause();
+            music06.currentTime-=music06.duration;
+
+            music07.pause();
+            music07.currentTime-=music07.duration;
+
+            music08.pause();
+            music08.currentTime-=music08.duration;
+
+            music09.pause();
+            music09.currentTime-=music09.duration;
+
+            music10.pause();
+            music10.currentTime-=music10.duration;
+
+            music11.pause();
+            music11.currentTime-=music11.duration;
+
+            music12.pause();
+            music12.currentTime-=music12.duration;
+
+            music13.pause();
+            music13.currentTime-=music13.duration;
+
+            music14.pause();
+            music14.currentTime-=music14.duration;
+
+            music15.pause();
+            music15.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music04.play();
+        })
+
+        xiaoqiao.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music06.pause();
+            music06.currentTime-=music06.duration;
+
+            music07.pause();
+            music07.currentTime-=music07.duration;
+
+            music08.pause();
+            music08.currentTime-=music08.duration;
+
+            music09.pause();
+            music09.currentTime-=music09.duration;
+
+            music10.pause();
+            music10.currentTime-=music10.duration;
+
+            music11.pause();
+            music11.currentTime-=music11.duration;
+
+            music12.pause();
+            music12.currentTime-=music12.duration;
+
+            music13.pause();
+            music13.currentTime-=music13.duration;
+
+            music14.pause();
+            music14.currentTime-=music14.duration;
+
+            music15.pause();
+            music15.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music05.play();
+        })
+
+        daqiao.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music07.pause();
+            music07.currentTime-=music07.duration;
+
+            music08.pause();
+            music08.currentTime-=music08.duration;
+
+            music09.pause();
+            music09.currentTime-=music09.duration;
+
+            music10.pause();
+            music10.currentTime-=music10.duration;
+
+            music11.pause();
+            music11.currentTime-=music11.duration;
+
+            music12.pause();
+            music12.currentTime-=music12.duration;
+
+            music13.pause();
+            music13.currentTime-=music13.duration;
+
+            music14.pause();
+            music14.currentTime-=music14.duration;
+
+            music15.pause();
+            music15.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music06.play();
+        })
+
+        libai.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music08.pause();
+            music08.currentTime-=music08.duration;
+
+            music09.pause();
+            music09.currentTime-=music09.duration;
+
+            music10.pause();
+            music10.currentTime-=music10.duration;
+
+            music11.pause();
+            music11.currentTime-=music11.duration;
+
+            music12.pause();
+            music12.currentTime-=music12.duration;
+
+            music13.pause();
+            music13.currentTime-=music13.duration;
+
+            music14.pause();
+            music14.currentTime-=music14.duration;
+
+            music15.pause();
+            music15.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music07.play();
+        })
+
+        make.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music09.pause();
+            music09.currentTime-=music09.duration;
+
+            music10.pause();
+            music10.currentTime-=music10.duration;
+
+            music11.pause();
+            music11.currentTime-=music11.duration;
+
+            music12.pause();
+            music12.currentTime-=music12.duration;
+
+            music13.pause();
+            music13.currentTime-=music13.duration;
+
+            music14.pause();
+            music14.currentTime-=music14.duration;
+
+            music15.pause();
+            music15.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music08.play();
+        })
+
+        lan.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music08.pause();
+            music08.currentTime-=music09.duration;
+
+            music10.pause();
+            music10.currentTime-=music10.duration;
+
+            music11.pause();
+            music11.currentTime-=music11.duration;
+
+            music12.pause();
+            music12.currentTime-=music12.duration;
+
+            music13.pause();
+            music13.currentTime-=music13.duration;
+
+            music14.pause();
+            music14.currentTime-=music14.duration;
+
+            music15.pause();
+            music15.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music09.play();
+        })
+
+        caiwenji.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music08.pause();
+            music08.currentTime-=music09.duration;
+
+            music09.pause();
+            music09.currentTime-=music10.duration;
+
+            music11.pause();
+            music11.currentTime-=music11.duration;
+
+            music12.pause();
+            music12.currentTime-=music12.duration;
+
+            music13.pause();
+            music13.currentTime-=music13.duration;
+
+            music14.pause();
+            music14.currentTime-=music14.duration;
+
+            music15.pause();
+            music15.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music10.play();
+        })
+
+        xialuoter.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music08.pause();
+            music08.currentTime-=music09.duration;
+
+            music09.pause();
+            music09.currentTime-=music10.duration;
+
+            music10.pause();
+            music10.currentTime-=music11.duration;
+
+            music12.pause();
+            music12.currentTime-=music12.duration;
+
+            music13.pause();
+            music13.currentTime-=music13.duration;
+
+            music14.pause();
+            music14.currentTime-=music14.duration;
+
+            music15.pause();
+            music15.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music11.play();
+        })
+
+        yao.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music08.pause();
+            music08.currentTime-=music09.duration;
+
+            music09.pause();
+            music09.currentTime-=music10.duration;
+
+            music10.pause();
+            music10.currentTime-=music11.duration;
+
+            music11.pause();
+            music11.currentTime-=music12.duration;
+
+            music13.pause();
+            music13.currentTime-=music13.duration;
+
+            music14.pause();
+            music14.currentTime-=music14.duration;
+
+            music15.pause();
+            music15.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music12.play();
+        })
+
+        yu.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music08.pause();
+            music08.currentTime-=music09.duration;
+
+            music09.pause();
+            music09.currentTime-=music10.duration;
+
+            music10.pause();
+            music10.currentTime-=music11.duration;
+
+            music11.pause();
+            music11.currentTime-=music12.duration;
+
+            music12.pause();
+            music12.currentTime-=music13.duration;
+
+            music14.pause();
+            music14.currentTime-=music14.duration;
+
+            music15.pause();
+            music15.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music13.play();
+        })
+
+        sunbin.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music08.pause();
+            music08.currentTime-=music09.duration;
+
+            music09.pause();
+            music09.currentTime-=music10.duration;
+
+            music10.pause();
+            music10.currentTime-=music11.duration;
+
+            music11.pause();
+            music11.currentTime-=music12.duration;
+
+            music12.pause();
+            music12.currentTime-=music13.duration;
+
+            music13.pause();
+            music13.currentTime-=music14.duration;
+
+            music15.pause();
+            music15.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music14.play();
+        })
+
+        change.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music08.pause();
+            music08.currentTime-=music09.duration;
+
+            music09.pause();
+            music09.currentTime-=music10.duration;
+
+            music10.pause();
+            music10.currentTime-=music11.duration;
+
+            music11.pause();
+            music11.currentTime-=music12.duration;
+
+            music12.pause();
+            music12.currentTime-=music13.duration;
+
+            music13.pause();
+            music13.currentTime-=music14.duration;
+
+            music14.pause();
+            music14.currentTime-=music15.duration;
+
+            music16.pause();
+            music16.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music15.play();
+        })
+
+        daji.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music08.pause();
+            music08.currentTime-=music09.duration;
+
+            music09.pause();
+            music09.currentTime-=music10.duration;
+
+            music10.pause();
+            music10.currentTime-=music11.duration;
+
+            music11.pause();
+            music11.currentTime-=music12.duration;
+
+            music12.pause();
+            music12.currentTime-=music13.duration;
+
+            music13.pause();
+            music13.currentTime-=music14.duration;
+
+            music14.pause();
+            music14.currentTime-=music15.duration;
+
+            music15.pause();
+            music15.currentTime-=music16.duration;
+
+            music17.pause();
+            music17.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music16.play();
+        })
+
+        zhenji.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music08.pause();
+            music08.currentTime-=music09.duration;
+
+            music09.pause();
+            music09.currentTime-=music10.duration;
+
+            music10.pause();
+            music10.currentTime-=music11.duration;
+
+            music11.pause();
+            music11.currentTime-=music12.duration;
+
+            music12.pause();
+            music12.currentTime-=music13.duration;
+
+            music13.pause();
+            music13.currentTime-=music14.duration;
+
+            music14.pause();
+            music14.currentTime-=music15.duration;
+
+            music15.pause();
+            music15.currentTime-=music16.duration;
+
+            music16.pause();
+            music16.currentTime-=music17.duration;
+
+            music18.pause();
+            music18.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music17.play();
+        })
+
+        wangzahojun.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music08.pause();
+            music08.currentTime-=music09.duration;
+
+            music09.pause();
+            music09.currentTime-=music10.duration;
+
+            music10.pause();
+            music10.currentTime-=music11.duration;
+
+            music11.pause();
+            music11.currentTime-=music12.duration;
+
+            music12.pause();
+            music12.currentTime-=music13.duration;
+
+            music13.pause();
+            music13.currentTime-=music14.duration;
+
+            music14.pause();
+            music14.currentTime-=music15.duration;
+
+            music15.pause();
+            music15.currentTime-=music16.duration;
+
+            music16.pause();
+            music16.currentTime-=music17.duration;
+
+            music17.pause();
+            music17.currentTime-=music18.duration;
+
+            music19.pause();
+            music19.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music18.play();
+        })
+
+        suanxiang.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music08.pause();
+            music08.currentTime-=music09.duration;
+
+            music09.pause();
+            music09.currentTime-=music10.duration;
+
+            music10.pause();
+            music10.currentTime-=music11.duration;
+
+            music11.pause();
+            music11.currentTime-=music12.duration;
+
+            music12.pause();
+            music12.currentTime-=music13.duration;
+
+            music13.pause();
+            music13.currentTime-=music14.duration;
+
+            music14.pause();
+            music14.currentTime-=music15.duration;
+
+            music15.pause();
+            music15.currentTime-=music16.duration;
+
+            music16.pause();
+            music16.currentTime-=music17.duration;
+
+            music17.pause();
+            music17.currentTime-=music18.duration;
+
+            music18.pause();
+            music18.currentTime-=music19.duration;
+
+            music20.pause();
+            music20.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music19.play();
+        })
+
+        ailin.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music08.pause();
+            music08.currentTime-=music09.duration;
+
+            music09.pause();
+            music09.currentTime-=music10.duration;
+
+            music10.pause();
+            music10.currentTime-=music11.duration;
+
+            music11.pause();
+            music11.currentTime-=music12.duration;
+
+            music12.pause();
+            music12.currentTime-=music13.duration;
+
+            music13.pause();
+            music13.currentTime-=music14.duration;
+
+            music14.pause();
+            music14.currentTime-=music15.duration;
+
+            music15.pause();
+            music15.currentTime-=music16.duration;
+
+            music16.pause();
+            music16.currentTime-=music17.duration;
+
+            music17.pause();
+            music17.currentTime-=music18.duration;
+
+            music18.pause();
+            music18.currentTime-=music19.duration;
+
+            music19.pause();
+            music19.currentTime-=music20.duration;
+
+            music21.pause();
+            music21.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music20.play();
+        })
+
+        anqila.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music08.pause();
+            music08.currentTime-=music09.duration;
+
+            music09.pause();
+            music09.currentTime-=music10.duration;
+
+            music10.pause();
+            music10.currentTime-=music11.duration;
+
+            music11.pause();
+            music11.currentTime-=music12.duration;
+
+            music12.pause();
+            music12.currentTime-=music13.duration;
+
+            music13.pause();
+            music13.currentTime-=music14.duration;
+
+            music14.pause();
+            music14.currentTime-=music15.duration;
+
+            music15.pause();
+            music15.currentTime-=music16.duration;
+
+            music16.pause();
+            music16.currentTime-=music17.duration;
+
+            music17.pause();
+            music17.currentTime-=music18.duration;
+
+            music18.pause();
+            music18.currentTime-=music19.duration;
+
+            music19.pause();
+            music19.currentTime-=music20.duration;
+
+            music20.pause();
+            music20.currentTime-=music21.duration;
+
+            music22.pause();
+            music22.currentTime-=music22.duration;
+
+            music21.play();
+        })
+
+        galuo.on("mousedown",()=>{
+
+            music01.pause();
+            music01.currentTime-=music03.duration;
+
+            music02.pause();
+            music02.currentTime-=music02.duration;
+
+            music03.pause();
+            music03.currentTime-=music04.duration;
+
+            music04.pause();
+            music04.currentTime-=music05.duration;
+
+            music05.pause();
+            music05.currentTime-=music06.duration;
+
+            music06.pause();
+            music06.currentTime-=music07.duration;
+
+            music07.pause();
+            music07.currentTime-=music08.duration;
+
+            music08.pause();
+            music08.currentTime-=music09.duration;
+
+            music09.pause();
+            music09.currentTime-=music10.duration;
+
+            music10.pause();
+            music10.currentTime-=music11.duration;
+
+            music11.pause();
+            music11.currentTime-=music12.duration;
+
+            music12.pause();
+            music12.currentTime-=music13.duration;
+
+            music13.pause();
+            music13.currentTime-=music14.duration;
+
+            music14.pause();
+            music14.currentTime-=music15.duration;
+
+            music15.pause();
+            music15.currentTime-=music16.duration;
+
+            music16.pause();
+            music16.currentTime-=music17.duration;
+
+            music17.pause();
+            music17.currentTime-=music18.duration;
+
+            music18.pause();
+            music18.currentTime-=music19.duration;
+
+            music19.pause();
+            music19.currentTime-=music20.duration;
+
+            music20.pause();
+            music20.currentTime-=music21.duration;
+
+            music21.pause();
+            music21.currentTime-=music22.duration;
+
+            music22.play();
+        })
+
+
+    })
+
+</script>
+</html>
